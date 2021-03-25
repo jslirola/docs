@@ -1,4 +1,4 @@
-# Troubleshooting
+# Resolución de problemas
 
 If Flarum isn't installing or working as expected, the first thing you should do is *check again* whether your environment meets the [system requirements](install.md#server-requirements). If you're missing something that Flarum needs to run, you'll need to remedy that first.
 

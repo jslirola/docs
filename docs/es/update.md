@@ -1,3 +1,3 @@
-# Updating
+# Actualización
 
-While Flarum is in beta, instructions on how to update will be posted in each [release announcement](https://discuss.flarum.org/t/blog?sort=newest).
+Mientras Flarum esté en fase beta, las instrucciones sobre cómo actualizar se publicarán en cada [anuncio de lanzamiento](https://discuss.flarum.org/t/blog?sort=newest).
