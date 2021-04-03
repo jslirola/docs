@@ -14,18 +14,18 @@ The [admin dashboard](../admin.md)'s Appearance page is a great first place to s
 
 ## CSS Theming
 
-CSS is a style sheet language that tells browsers how to display elements of a webpage.
-It allows us to modify everything from colors to fonts to element size and positioning to animations.
-Adding custom CSS can be a great way to modify your Flarum installation to match a theme.
+El CSS es un lenguaje de hojas de estilo que indica a los navegadores cómo mostrar los elementos de una página web.
+Nos permite modificar todo, desde los colores hasta las fuentes, el tamaño de los elementos y su posicionamiento, y las animaciones.
+Añadir CSS personalizado puede ser una gran manera de modificar su instalación de Flarum para que coincida con un tema.
 
-A CSS tutorial is beyond the scope of this documentation, but there are plenty of great online resources to learn the basics of CSS.
+Un tutorial de CSS está más allá del alcance de esta documentación, pero hay muchos recursos en línea para aprender los fundamentos de CSS.
 
 :::tip
-Flarum actually uses LESS, which makes it easier to write CSS by allowing for variables, conditionals, and functions.
+Flarum utiliza LESS, que facilita la escritura de CSS al permitir variables, condicionales y funciones.
 :::
 
-## Extensions
+## Extensiones
 
-Flarum's flexible [extension system](extensions.md) allows you to add, remove, or modify practically any part of Flarum.
-If you want to make substantial theming modifications beyond changing colors/sizes/styles, a custom extension is definitely the way to go.
-To learn how to make an extension, check out our [extension documentation](extend/README.md)!
+El flexible [sistema de extensiones](extensions.md) de Flarum te permite añadir, eliminar o modificar prácticamente cualquier parte de Flarum.
+Si quieres hacer modificaciones temáticas sustanciales más allá de cambiar colores/tamaños/estilos, una extensión personalizada es definitivamente el camino a seguir.
+Para aprender cómo hacer una extensión, ¡consulta nuestra [documentación de extensiones](extend/README.md)!

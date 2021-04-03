@@ -1,27 +1,27 @@
-# Extensions
+# Extensiones
 
-Flarum is minimalistic, but it's also highly extensible. In fact, most of the features that ship with Flarum are actually extensions!
+Flarum es minimalista, pero también es altamente extensible. De hecho, ¡la mayoría de las características que vienen con Flarum son en realidad extensiones!
 
-This approach makes Flarum extremely customizable: You can disable any features you don't need, and install other extensions to make your forum perfect for your community.
+Este enfoque hace que Flarum sea extremadamente personalizable: Puedes desactivar cualquier característica que no necesites, e instalar otras extensiones para que tu foro sea perfecto para tu comunidad.
 
-For more information on Flarum's philosophy on what features we include in core, or if you're looking to make your own extension, please see our [extension documentation](extend/README.md).
-This article will focus on managing extensions from a forum admin's perspective.
+Para más información sobre la filosofía de Flarum en cuanto a las características que incluimos en el núcleo, o si está buscando hacer su propia extensión, por favor vea nuestra [documentación de extensiones](extend/README.md).
+Este artículo se centrará en la gestión de las extensiones desde la perspectiva de un administrador del foro.
 
-## Finding Extensions
+## Encontrando Extensiones
 
-Flarum has a wide ecosystem of extensions, most of which are open source and free. To find new and awesome extensions, visit the [Extensions](https://discuss.flarum.org/t/extensions) tag on Flarum's community forums. The unofficial [Extiverse extension database](https://extiverse.com/) is also a great resource.
+Flarum tiene un amplio ecosistema de extensiones, la mayoría de las cuales son de código abierto y gratuitas. Para encontrar nuevas e increíbles extensiones, visita la etiqueta [Extensiones](https://discuss.flarum.org/t/extensions) en los foros de la comunidad de Flarum. La base de datos no oficial [Extiverse extension database](https://extiverse.com/) es también un gran recurso.
 
-## Installing Extensions
+## Instalación de Extensiones
 
-Just like Flarum, extensions are installed through [Composer](https://getcomposer.org), using SSH. To install a typical extension:
+Al igual que Flarum, las extensiones se instalan a través de [Composer](https://getcomposer.org), usando SSH. Para instalar una extensión típica:
 
-1. `cd` to the folder containing `composer.json`.
-2. Run `composer require COMPOSER_PACKAGE_NAME`. This should be provided by the extension's documentation.
+1. `cd` a la carpeta que contiene el archivo `composer.json`.
+2. Ejecute `composer require COMPOSER_PACKAGE_NAME`. Esto debería ser proporcionado por la documentación de la extensión.
 
-## Managing Extensions
+## Gestión de Extensiones
 
-The extensions page of the admin dashboard provides a convenient way to manage extensions when they are installed. You can:
+La página de extensiones del panel de control del administrador proporciona una manera conveniente de gestionar las extensiones cuando están instaladas. Puede:
 
-- Enable or disable an extension
-- Access extension settings (although some extensions will use a tab in the main sidebar for settings)
-- Revert an extension's migrations to remove any database modifications it made (this can be done with the Uninstall button). This will remove ALL data associated with the extension, and is irreversible. It should only be done when you're removing an extension, and don't plan to install it again. It is also entirely optional.
+- Activar o desactivar una extensión
+- Acceder a la configuración de la extensión (aunque algunas extensiones utilizarán una pestaña en la barra lateral principal para la configuración)
+- Revertir las migraciones de una extensión para eliminar cualquier modificación de la base de datos que haya hecho (esto se puede hacer con el botón de desinstalación). Esto eliminará TODOS los datos asociados a la extensión, y es irreversible. Sólo se debe hacer cuando se está eliminando una extensión, y no se planea instalarla de nuevo. Es totalmente opcional.

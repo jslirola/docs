@@ -1,27 +1,29 @@
-# Email Configuration
+# Configuración del Correo Electrónico
 
-Any community needs to send emails to allow for email verification, password resets, notifications, and other communication to users. Configuring your forum to send emails should be one of your first steps as an admin: an incorrect configuration will cause errors when users try to register.
+Cualquier comunidad necesita enviar correos electrónicos para permitir la verificación del correo electrónico, el restablecimiento de la contraseña, las notificaciones y otras comunicaciones a los usuarios. Configurar tu foro para enviar correos electrónicos debería ser uno de tus primeros pasos como administrador: una configuración incorrecta causará errores cuando los usuarios intenten registrarse.
 
-## Available Drivers
+## Controladores Disponibles
 
-Flarum provides several drivers by default, they are listed and explained below. Developers can also add [custom mail drivers through extensions](extend/mail.md).
+Flarum proporciona varios controladores por defecto, están listados y explicados a continuación. Los desarrolladores también pueden añadir [controladores de correo personalizados a través de extensiones](extend/mail.md).
 
 ### SMTP
 
-This is probably the most commonly used email driver, allowing you to configure a host, port/encryption, username, and password for an external SMTP service. Please note that the encryption field expects either `ssl` or `tls`.
+Este es probablemente el controlador de correo electrónico más comúnmente utilizado, permitiéndole configurar un host, puerto/encriptación, nombre de usuario y contraseña para un servicio SMTP externo. Tenga en cuenta que el campo de encriptación espera `ssl` o `tls`.
 
 ### Mail
 
-The `mail` driver will try to use the sendmail / postfix email system included in many hosting servers. You must properly install and configure sendmail on your server for this to work.
+El controlador `mail` intentará utilizar el sistema de correo electrónico sendmail / postfix incluido en muchos servidores de alojamiento. Debe instalar y configurar correctamente sendmail en su servidor para que esto funcione.
 
 ### Mailgun
 
-This driver uses your [Mailgun](https://www.mailgun.com/) account to send emails. You'll need a secret key, as well as the domain and region from your mailgun configuration.
+Este controlador utiliza su cuenta [Mailgun](https://www.mailgun.com/) para enviar correos electrónicos. Necesitarás una clave secreta, así como el dominio y la región de tu configuración de mailgun.
 
 ### Log
 
 The log mail driver DOES NOT SEND MAIL, and is primarily used by developers. It writes the content of any emails to the log file in `FLARUM_ROOT_DIRECTORY/storage/logs`.
 
-## Testing Email
+El controlador de correo log NO ENVÍA CORREO, y es utilizado principalmente por los desarrolladores. Escribe el contenido de cualquier correo electrónico en el archivo de log en `FLARUM_ROOT_DIRECTORY/storage/logs`.
 
-Once you've saved an email configuration, you can click the "Send Test Mail" button on the Mail page of the admin dashboard to make sure your configuration works. If you see an error, or do not receive an email, adjust the configuration and try again. Make sure to check your spam if there's no error, but nothing shows up in your inbox.
+## Probar el Correo Electrónico
+
+Una vez que hayas guardado una configuración de correo electrónico, puedes hacer clic en el botón "Enviar correo de prueba" en la página de correo del panel de administración para asegurarte de que tu configuración funciona. Si ves un error o no recibes un correo electrónico, ajusta la configuración e inténtalo de nuevo. Asegúrate de revisar tu correo no deseado si no hay ningún error, pero no aparece nada en tu bandeja de entrada.
