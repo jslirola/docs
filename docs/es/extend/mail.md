@@ -1,8 +1,8 @@
-# Mail
+# Correo
 
-In addition to the [default drivers in core](../mail.md), Flarum allows new mail drivers to be added through extenders. To create your own mail driver, you'll need to create a class implementing `\Flarum\Mail\DriverInterface`. Flarum actually takes care of the frontend for providing email settings: just declare which settings you need, and any default values, in `availableSettings`.
+Además de los [controladores por defecto en el núcleo](../mail.md), Flarum permite añadir nuevos controladores de correo a través de extensores. Para crear su propio controlador de correo, necesitará crear una clase que implemente ``Flarum\Mail\DriverInterface``. Flarum se encarga de proporcionar la configuración del correo electrónico: sólo tiene que declarar la configuración que necesita, y los valores por defecto, en `availableSettings`.
 
-For example:
+Por ejemplo:
 
 ```php
 use Flarum\Mail\DriverInterface;
@@ -40,20 +40,20 @@ class MailgunDriver implements DriverInterface
 
     public function buildTransport(SettingsRepositoryInterface $settings): Swift_Transport
     {
-        // Return a mail transport that implements Swift Transport
+        // Devuelve un transporte de correo que implementa Swift Transport
     }
 }
 ```
 
-To register mail drivers, use the `Flarum\Extend\Mail` extender in your extension's `extend.php` file:
+Para registrar los controladores de correo, utilice el extensor `Flarum\Extend\Mail` en el archivo `extend.php` de su extensión:
 
 ```php
 use Flarum\Extend;
 use YourNamespace\Mail\CustomDriver;
 
 return [
-  // Other extenders
+  // Otros extensores
   (new Extend\Mail())->driver(CustomDriver::class)
-  // Other extenders
+  // Otros extensores
 ];
 ```

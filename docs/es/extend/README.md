@@ -1,40 +1,40 @@
-# Extending Flarum
+# Extensión de Flarum
 
-Flarum is minimalistic, but it's also highly extensible. In fact, most of the features that ship with Flarum are actually extensions!
+Flarum es minimalista, pero también es altamente extensible. De hecho, la mayoría de las características que vienen con Flarum son extensiones.
 
-This approach makes Flarum extremely customizable. A user can disable any features they don't use on their forum, and install other extensions to make a forum perfect for their community.
+Este enfoque hace que Flarum sea extremadamente personalizable. Un usuario puede desactivar cualquier característica que no utilice en su foro, e instalar otras extensiones para hacer un foro perfecto para su comunidad.
 
-In order to achieve this extensibility, Flarum has been built with rich APIs and extension points. With some programming knowledge, you can leverage these APIs to add just about any feature you want. This section of the documentation aims to teach you how Flarum works, and how to use the APIs so that you can build your own extensions.
+Para lograr esta extensibilidad, Flarum ha sido construido con ricas APIs y puntos de extensión. Con algunos conocimientos de programación, puedes aprovechar estas APIs para añadir casi cualquier característica que desees. Esta sección de la documentación pretende enseñarte cómo funciona Flarum, y cómo usar las APIs para que puedas construir tus propias extensiones.
 
 ::: warning
-**Both the Extension API and this documentation is a work in progress.** Be aware that future beta releases may break your extensions! If you have feedback, [we'd love to hear it](https://discuss.flarum.org/).
+**Tanto la API de extensiones como esta documentación son un trabajo en curso.** ¡Ten en cuenta que las futuras versiones beta pueden romper tus extensiones! Si tienes comentarios, [nos encantaría escucharlos](https://discuss.flarum.org/).
 :::
 
-## Core vs. Extensions
+## Core vs. Extensiones
 
-Where do we draw the line between Flarum's core and its extensions? Why are some features included in the core, and others aren't? It is important to understand this distinction so that we can maintain consistency and quality within Flarum's ecosystem.
+¿Dónde trazamos la línea entre el core de Flarum y sus extensiones? ¿Por qué algunas características se incluyen en el core y otras no? Es importante entender esta distinción para que podamos mantener la consistencia y la calidad dentro del ecosistema de Flarum.
 
-**Flarum's core** is not intended to be packed full of features. Rather, it is a scaffold, or a framework, which provides a reliable foundation on which extensions can build. It contains only basic, unopinionated functionality that is essential to a forum: discussions, posts, users, groups, and notifications.
+**El core de Flarum** no pretende estar lleno de características. Más bien, es un andamio, o un marco, que proporciona una base fiable sobre la que se pueden construir extensiones. Contiene sólo las funcionalidades básicas, no opinables, que son esenciales para un foro: discusiones, mensajes, usuarios, grupos y notificaciones.
 
-**Bundled extensions** are features that are packaged with Flarum and enabled by default. They are extensions just like any other, and may be disabled and uninstalled. While their scope is not intended to address all use-cases, the idea is to make them generic and configurable enough that they can satisfy the majority.
+**Las extensiones incluidas** son características que vienen empaquetadas con Flarum y están activadas por defecto. Son extensiones como cualquier otra, y pueden ser desactivadas y desinstaladas. Si bien su alcance no pretende abordar todos los casos de uso, la idea es hacerlas lo suficientemente genéricas y configurables para que puedan satisfacer a la mayoría.
 
-**Third-party extensions** are features which are made by others and are not officially supported by the Flarum team. They can be built and used to address more specific use-cases.
+**Las extensiones de terceros** son características creadas por otros y no están oficialmente soportadas por el equipo de Flarum. Pueden ser construidas y usadas para abordar casos de uso más específicos.
 
-If you are aiming to address a bug or shortcoming of the core, or of an existing bundled extension, it may be appropriate to *contribute to the respective project* rather than disperse effort on a new third-party extension. It is a good idea to start a discussion on the [Flarum Community](https://discuss.flarum.org/) to get the perspective of the Flarum developers.
+Si quieres solucionar un error o una deficiencia del núcleo, o de una extensión ya existente, puede ser apropiado *contribuir al proyecto respectivo* en lugar de dispersar el esfuerzo en una nueva extensión de terceros. Es una buena idea comenzar una discusión en la [Comunidad Flarum](https://discuss.flarum.org/) para obtener la perspectiva de los desarrolladores de Flarum.
 
-## Useful Resources
+## Recursos útiles
 
-- [This Documentation](start.md)
-- [Tips for Beginning Developers](https://discuss.flarum.org/d/5512-extension-development-tips)
-- [Developers explaining their workflow for extension development](https://discuss.flarum.org/d/6320-extension-developers-show-us-your-workflow)
-- [Extension namespace tips](https://discuss.flarum.org/d/9625-flarum-extension-namespacing-tips)
-- [Mithril js documentation](https://mithril.js.org/)
-- [Laravel API Docs](https://laravel.com/api/6.x/)
-- [Flarum API Docs](https://api.flarum.org)
+- [Esta documentación](start.md)
+- [Consejos para desarrolladores principiantes](https://discuss.flarum.org/d/5512-extension-development-tips)
+- [Desarrolladores explicando su flujo de trabajo para el desarrollo de extensiones](https://discuss.flarum.org/d/6320-extension-developers-show-us-your-workflow)
+- [Consejos sobre el espacio de nombres de las extensiones](https://discuss.flarum.org/d/9625-flarum-extension-namespacing-tips)
+- [Documentación de Mithril js](https://mithril.js.org/)
+- [Documentación de la API de Laravel](https://laravel.com/api/6.x/)
+- [Documentación de la API de Flarum](https://api.flarum.org)
 - [ES6 cheatsheet](https://github.com/DrkSephy/es6-cheatsheet)
-- [Flarum Blank Extension Generator](https://discuss.flarum.org/d/11333-flarum-extension-generator-by-reflar/)
+- [Generador de extensiones en blanco de Flarum](https://discuss.flarum.org/d/11333-flarum-extension-generator-by-reflar/)
 
-### Getting help
+### Obtener ayuda
 
-- [Official Flarum Dev Community](https://discuss.flarum.org/t/dev)
-- [Join us on #extend in our discord chat](https://flarum.org/discord/)
+- [Comunidad oficial de desarrollo de Flarum](https://discuss.flarum.org/t/dev)
+- [Únase a nosotros en #extend en nuestro chat de Discord](https://flarum.org/discord/)

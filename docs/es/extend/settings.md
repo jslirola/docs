@@ -1,12 +1,12 @@
-# Settings
+# Ajustes
 
-At some point while making an extension, you might want to read some of the forum's settings or store certain settings specific to your extension. Thankfully, Flarum makes this very easy.
+En algún momento mientras haces una extensión, puede que quieras leer algunas de las configuraciones del foro o almacenar ciertas configuraciones específicas de tu extensión. Afortunadamente, Flarum hace esto muy fácil.
 
-## The Settings Repository
+## El repositorio de ajustes
 
-Reading or changing settings can be done using an implementation of the `SettingsRepositoryInterface`.
-Because Flarum uses [Laravel's service container](https://laravel.com/docs/6.x/container) (or IoC container) for dependency injection, you don't need to worry about where to obtain such a repository, or how to instantiate one.
-Instead, you can rely on the container to instantiate your class and inject the correct dependencies.
+La lectura o el cambio de configuraciones puede hacerse usando una implementación de la `SettingsRepositoryInterface`.
+Debido a que Flarum utiliza el [contenedor de servicios de Laravel](https://laravel.com/docs/6.x/container) (o contenedor IoC) para la inyección de dependencias, no necesitas preocuparte de dónde obtener tal repositorio, o cómo instanciar uno.
+En su lugar, puedes confiar en el contenedor para instanciar tu clase e inyectar las dependencias correctas.
 
 ```php
 <?php
@@ -29,49 +29,50 @@ class ClassInterfacesWithSettings
 }
 ```
 
-Great! Now the `SettingsRepositoryInterface` is available through `$this->settings` to our class.
+Muy bien. Ahora la `SettingsRepositoryInterface` está disponible a través de `$this->settings` para nuestra clase.
 
-### Reading Settings
+### Lectura de la configuración
 
-To read settings, all we have to do is use the repository's `get()` function:
+Para leer la configuración, todo lo que tenemos que hacer es utilizar la función `get()` del repositorio:
 
 `$this->settings->get('forum_title')`
 
-The `get()` function accepts two arguments:
+La función `get()` acepta dos argumentos:
 
-1. The name of the setting you are trying to read.
-2. (Optional) A default value if no value has been stored for such a setting. By default, this will be `null`.
+1. El nombre de la configuración que está tratando de leer.
+2. (Opcional) Un valor por defecto si no se ha almacenado ningún valor para dicho ajuste. Por defecto, será `null`.
 
-### Storing Settings
+### Almacenamiento de ajustes
 
-Storing settings ist just as easy, use the `set()` function:
+Almacenar configuraciones es igual de fácil, utilice la función `set()`:
 
 `$this->settings->set('forum_title', 'Super Awesome Forum')`
 
-The `set` function also accepts two arguments:
+La función `set` también acepta dos argumentos:
 
-1. The name of the setting you are trying to change.
-2. The value you want to store for this setting.
+1. El nombre de la configuración que está tratando de cambiar.
+2. El valor que desea almacenar para este ajuste.
 
-### Other Functions
+### Otras Funciones
 
-The `all()` function returns an array of all known settings.
+La función `all()` devuelve una matriz con todas las configuraciones conocidas.
 
-The `delete($name)` function lets you remove a named setting.
+La función `delete($name)` permite eliminar una configuración con nombre.
 
-## Settings in the Frontend
+## Ajustes en el Frontend
 
-### Editing Settings
+### Edición de Ajustes
 
-To learn more about managing settings through the admin dashboard, see the [relevant documentation](admin.md).
-### Accessing Settings
+Para obtener más información sobre la gestión de la configuración a través del panel de administración, consulte la [documentación pertinente](admin.md).
 
-All settings are available in the `admin` frontend via the `app.data.settings` global.
-However, this is not done in the `forum` frontend, as anyone can access it, and you wouldn't want to leak all your settings! (Seriously, that could be a very problematic data breach).
+### Acceso a la Configuración
 
-Instead, if we want to use settings in the `forum` frontend, we'll need to serialize them and send them alongside the initial forum data payload.
+Todos los ajustes están disponibles en el frontend `admin` a través del global `app.data.settings`.
+Sin embargo, esto no se hace en el frontend `forum`, ya que cualquiera puede acceder a él, ¡y no querrías filtrar todas tus configuraciones! (En serio, eso podría ser una violación de datos muy problemática).
 
-This can be done via the `Settings` extender. For example:
+En su lugar, si queremos utilizar la configuración en el frontend de `forum`, tendremos que serializarla y enviarla junto con la carga de datos inicial del foro.
+
+Esto se puede hacer a través del extensor `Settings`. Por ejemplo:
 
 **extend.php**
 
@@ -82,12 +83,12 @@ return [
    (new Extend\Settings)
       ->serializeToForum('myCoolSetting', 'my.cool.setting.key')
       ->serializeToForum('myCoolSettingModified', 'my.cool.setting.key', function ($retrievedValue) {
-        // This third argument is optional, and allows us to pass the retrieved setting through some custom logic.
-        // In this example, we'll append a string to it.
+        // Este tercer argumento es opcional, y nos permite pasar la configuración recuperada a través de alguna lógica personalizada.
+        // En este ejemplo, le añadiremos una cadena.
 
         return "My Cool Setting: $retrievedValue";
       }),
 ]
 ```
 
-Now, the `my.cool.setting.key` setting will be accessible in the frontend as `app.forum.attribute("myCoolSetting")`, and our modified value will be accessible via `app.forum.attribute("myCoolSettingModified")`.
+Ahora, el ajuste `my.cool.setting.key` será accesible en el frontend como `app.forum.attribute("myCoolSetting")`, y nuestro valor modificado será accesible a través de `app.forum.attribute("myCoolSettingModified")`.

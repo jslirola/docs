@@ -1,52 +1,53 @@
-# Groups and Permissions
+# Grupos y permisos
 
-In addition to labeling roles, Flarum's group system is a way for permissions to be applied to segments of users.
+Además de etiquetar roles, el sistema de grupos de Flarum es una forma de aplicar permisos a segmentos de usuarios.
 
-## Groups
+## Grupos
 
-Flarum has several "reserved groups":
+Flarum tiene varios "grupos reservados":
 
-- The administrator group has ID `1`. Users in this group have all permissions.
-- All users (regardless of authentication status) are automatically placed in the Guest group (ID `2`)
-- All logged-in users are automatically placed in the Members group (ID `3`)
+- El grupo de administradores tiene el ID `1`. Los usuarios de este grupo tienen todos los permisos.
+- Todos los usuarios (independientemente del estado de autenticación) se colocan automáticamente en el grupo de invitados (ID `2`)
+- Todos los usuarios que han iniciado sesión se colocan automáticamente en el grupo Miembros (ID `3`)
 
-Reserved groups actually function just like any other group, existing as records in the database. They just have special properties in regards to how they're assigned (for guest and members), or what they can do (for administrator).
+Los grupos reservados funcionan como cualquier otro grupo, existiendo como registros en la base de datos. Sólo tienen propiedades especiales en cuanto a cómo se asignan (para invitados y miembros), o lo que pueden hacer (para el administrador).
 
-On install, Flarum will also create a moderator group with ID `4`, but this is just for convenience: it holds no special meaning.
+En la instalación, Flarum también creará un grupo de moderadores con el ID `4`, pero esto es sólo por conveniencia: no tiene ningún significado especial.
 
-Admins can also create new groups through the admin dashboard. Users can be added or removed from groups from their user page.
+Los administradores también pueden crear nuevos grupos a través del panel de administración. Los usuarios pueden ser añadidos o eliminados de los grupos desde su página de usuario.
 
-## Permissions
+## Permisos
 
-Flarum "permissions" are implemented as simple strings, and associated with groups in a pseudo-junction table (it's not a real ManyToMany relationship, but the concept is the same).
-That's actually all that the permisions grid in the admin dashboard is doing: you're adding and removing these permission strings from groups.
+Los "permisos" de Flarum se implementan como simples cadenas, y se asocian con los grupos en una tabla de 
+pseudounión (no es una verdadera relación ManyToMany, pero el concepto es el mismo).
+En realidad, eso es todo lo que hace la cuadrícula de permisos en el panel de control del administrador: estás añadiendo y eliminando estas cadenas de permisos de los grupos.
 
-There's no direct association between users and permissions: when we check a user's permissions, we're actually enumerating permissions for all the user's groups.
+No hay una asociación directa entre los usuarios y los permisos: cuando comprobamos los permisos de un usuario, en realidad estamos enumerando los permisos de todos los grupos del usuario.
 
-Groups and users have public methods for checking their permissions. Some of the more commonly used ones are:
+Los grupos y los usuarios tienen métodos públicos para comprobar sus permisos. Algunos de los más utilizados son:
 
 ```php
-// An Eloquent relation to the group's permissions
+// Una relación elocuente con los permisos del grupo
 $group->permissions();
 
-// Check if a group has a permission
+// Comprobar si un grupo tiene un permiso
 $group->hasPermission('viewDiscussions');
 
-// Enumerate all the user's permissions
+// Enumerar todos los permisos del usuario
 $user->getPermissions();
 
-// Check if the user is in a group with the given permission
+// Comprueba si el usuario está en un grupo con el permiso dado
 $user->hasPermission('viewDiscussions');
 ```
 
-:::warning Use Proper Authorization
-Permissions are just part of the puzzle: if you're enforcing whether a user can perform an action, you should use Flarum's [authorization system](authorization.md).
+:::warning Utilizar la Autorización Adecuada
+Los permisos son sólo una parte del rompecabezas: si quieres imponer si un usuario puede realizar una acción, debes utilizar el [sistema de autorización](authorization.md) de Flarum.
 :::
 
-### Adding Custom Permissions
+### Añadir Permisos Personalizados
 
-Since permissions are just strings, you don't need to formally "register" a permission anywhere: you just need a way for admins to assign that permission to groups.
-We can do this by extending the `flarum/components/PermissionGrid` frontend component. For example:
+Dado que los permisos son sólo cadenas, no es necesario "registrar" formalmente un permiso en ningún sitio: sólo se necesita una forma de que los administradores asignen ese permiso a los grupos.
+Podemos hacer esto extendiendo el componente frontend `flarum/components/PermissionGrid`. Por ejemplo:
 
 ```js
 import { extend } from 'flarum/extend';
@@ -55,12 +56,12 @@ import PermissionGrid from 'flarum/components/PermissionGrid';
 export default function() {
   extend(PermissionGrid.prototype, 'moderateItems', items => {
     items.add('tag', {
-      icon: 'fas fa-tag',  // CSS classes for the icon. Generally in fontawesome format, although you can use your own custom css too.
+      icon: 'fas fa-tag',  // Clases CSS para el icono. Generalmente en formato fontawesome, aunque también puedes usar tu propio css 
       label: app.translator.trans('flarum-tags.admin.permissions.tag_discussions_label'),
-      permission: 'discussion.tag'  // The permission string.
+      permission: 'discussion.tag'  // La cadena del permiso.
     }, 95);
   });
 }
 ```
 
-By default, permissions are only granted to admins. If you would like to make a permission available to other groups by default, you'll need to use a [data migration](data.md#migrations) to add rows for the relevant groups. If you want to do this, we **HIGHLY** recommend only assigning default permissions to one of the [reserved groups](#groups).
+Por defecto, los permisos sólo se conceden a los administradores. Si quieres que un permiso esté disponible para otros grupos por defecto, tendrás que utilizar una [migración de datos](data.md#migrations) para añadir filas para los grupos pertinentes. Si quieres hacer esto, te recomendamos **encarecidamente** que sólo asignes permisos por defecto a uno de los [grupos reservados](#groups).

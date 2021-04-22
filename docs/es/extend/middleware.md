@@ -1,11 +1,10 @@
 # Middleware
 
-Middleware is a nifty way to wrap the handling of HTTP requests in Flarum. This can allow you to modify responses, add your own checks to the request, and much more. The possibilities are endless!
+El middleware es una forma ingeniosa de envolver el manejo de las solicitudes HTTP en Flarum. Esto puede permitirte modificar las respuestas, añadir tus propias comprobaciones a la petición, y mucho más. ¡Las posibilidades son infinitas!
 
-Flarum maintains a middleware "Pipe" through which all requests pass. Each of the three "applications" (`admin`, `forum`, and `api`) have their own subpipe: after being processed through some shared logic, requests are diverted to one of the pipes based on the path.
+Flarum mantiene un middleware "Pipe" a través del cual pasan todas las solicitudes. Cada una de las tres "aplicaciones" (`admin`, `forum`, y `api`) tienen su propia sub-tubería: después de ser procesadas a través de alguna lógica compartida, las solicitudes son desviadas a una de las tuberías basadas en la ruta.
 
-A request passes through the middleware layers in order. When the request is handled (a middleware returns something instead of passing the request to the next layer, or throws an exception), the response will move back up the middleware layers in reverse order, before finally being returned to the user. Everything from Flarum's error handler to its authentication logic is implemented as middleware, and so can be supplemented, replaced, reordered, or removed by extensions.
-
+Una solicitud pasa por las capas de middleware en orden. Cuando la solicitud es manejada (un middleware devuelve algo en lugar de pasar la solicitud a la siguiente capa, o lanza una excepción), la respuesta se moverá de nuevo por las capas de middleware en orden inverso, antes de ser finalmente devuelta al usuario. Todo, desde el manejador de errores de Flarum hasta su lógica de autenticación, se implementa como middleware, por lo que puede ser complementado, reemplazado, reordenado o eliminado por extensiones.
 
 ```php
 use Psr\Http\Message\ResponseInterface;
@@ -16,17 +15,17 @@ use Psr\Http\Server\RequestHandlerInterface;
 class YourMiddleware implements MiddlewareInterface {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        // Logic to run before the request is processed and later middleware is called.
+        // Lógica que se ejecuta antes de que se procese la solicitud y se llame posteriormente al middleware.
         $response = $handler->handle($request);
-        // Logic to run after the request is processed.
+        // Lógica a ejecutar después de procesar la solicitud.
         return $response
     }
 }
 ```
 
-## Adding Middleware In Your Extension
+## Añadir un middleware en su extensión
 
-To add a new middleware, simply use the middleware extender in your extension's `extend.php` file:
+Para añadir un nuevo middleware, simplemente utilice el extensor de middleware en el archivo `extend.php` de su extensión:
 
 ```php
 use Flarum\Extend;
@@ -52,13 +51,13 @@ return [
 ];
 ```
 
-Tada! Middleware registered. Remember that order matters.
+Listo, Middleware registrado. Recuerda que el orden es importante.
 
-Now that we've got the basics down, let's run through a few more things:
+Ahora que ya tenemos lo básico, vamos a repasar algunas cosas más:
 
-## Restricting Middleware to Certain Routes
+## Restringir el middleware a ciertas rutas
 
-If you don't need your middleware to execute under every route, you can add an `if` to filter it:
+Si no necesitas que tu middleware se ejecute en todas las rutas, puedes añadir un `if` para filtrarlo:
 
 ```php
 use Laminas\Diactoros\Uri;
@@ -69,31 +68,31 @@ public function process(ServerRequestInterface $request, RequestHandlerInterface
     $routeToRunUnder = new Uri(app()->url('/path/to/run/under'));
 
     if ($currentRoute === $routeToRunUnder->getPath()) {
-        // Your logic here!
+        // ¡Su lógica aquí!
     }
 
     return $handler->handle($request);
 }
 ```
 
-If your middleware runs after `Flarum\Http\Middleware\ResolveRoute` (which is recommended if it is route-dependent), you can access the route name via `$request->getAttribute('routeName')`. For example:
+Si su middleware se ejecuta después de `Flarum\Http\Middleware\ResolveRoute` (lo que se recomienda si depende de la ruta), puede acceder al nombre de la ruta a través de `$request->getAttribute('routeName')`. Por ejemplo:
 
 ```php
 public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
 {
     if ($request->getAttribute('routeName') === 'register') {
-        // Your logic here!
+        // ¡Su lógica aquí!
     }
 
     return $handler->handle($request);
 }
 ```
 
-Of course, you can use any condition, not just the current route. Simple, right?
+Por supuesto, puede utilizar cualquier condición, no sólo la ruta actual. Simple, ¿verdad?
 
-## Returning Your Own Response
+## Devolución de su propia respuesta
 
-Let's refer back to the example and say you're checking a user against an external database during registration. One user registers and they are found in this database. Uh-oh! Let's keep them from registering:
+Volvamos al ejemplo y digamos que estás comprobando un usuario en una base de datos externa durante el registro. Un usuario se registra y se encuentra en esta base de datos. ¡Evitemos que se registre!
 
 ```php
 use Flarum\Api\JsonApiResponse;
@@ -123,13 +122,13 @@ public function process(ServerRequestInterface $request, RequestHandlerInterface
 }
 ```
 
-Phew! Crisis avoided.
+¡Uf! Crisis evitada.
 
-To learn more about the request and response objects, see the [PSR HTTP message interfaces](https://www.php-fig.org/psr/psr-7/#1-specification) documentation.
+Para saber más sobre los objetos de solicitud y respuesta, consulte la documentación [PSR HTTP message interfaces](https://www.php-fig.org/psr/psr-7/#1-specification).
 
-## Modifying the Response After Handling
+## Modificación de la respuesta después de la gestión
 
-If you'd like to do something with the response after the initial request has been handled, that's no problem! Just run the request handler and then your logic:
+Si quieres hacer algo con la respuesta después de que la solicitud inicial haya sido manejada, ¡no hay problema! Simplemente ejecute el manejador de la solicitud y luego su lógica:
 
 ```php
 public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -143,14 +142,14 @@ public function process(ServerRequestInterface $request, RequestHandlerInterface
 }
 ```
 
-Keep in mind that PSR-7 responses are immutable, so you'll need to reassign the `$response` variable every time you modify the response.
+Ten en cuenta que las respuestas de PSR-7 son inmutables, por lo que tendrás que reasignar la variable `$response` cada vez que modifiques la respuesta.
 
-## Passing On the Request
+## Pasar la solicitud
 
-Once all is said and done and you aren't returning a response yourself, you can simply pass the request to the next middleware:
+Una vez que todo está dicho y hecho y no estás devolviendo una respuesta por ti mismo, puedes simplemente pasar la solicitud al siguiente middleware:
 
 ```php
 return $handler->handle($request);
 ```
 
-Great! We're all done here. Now you can make the middleware of your dreams!
+¡Genial! Ya hemos terminado. ¡Ahora puedes hacer el middleware de tus sueños!
